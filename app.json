@@ -1,0 +1,19 @@
+{
+    "name": "Rick-and-Morty",
+    "displayName": "Rick-and-Morty",
+    "defaultLanguage": "en",
+    "features": [
+        {
+            "name": "characters",
+            "enabled": "true"
+        },
+        {
+            "name": "locations",
+            "enabled": "true"
+        },
+        {
+            "name": "episodes",
+            "enabled": "true"
+        }
+    ]
+}
