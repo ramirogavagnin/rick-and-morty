@@ -12,6 +12,8 @@ Set the [react native cli](https://reactnative.dev/docs/environment-setup) devel
 
 Install [Node.js](https://nodejs.org/es/) or check if you already have it running `node -v`
 
+Life's easy, use [NVM](https://github.com/nvm-sh/nvm) (Node Version Manager)
+
 -   **Yarn**
 
 Please use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) to manage your packages, **DON'T USE NPM INSTALL** on this project, this will cause unexpected bugs between the lock's files.
@@ -20,14 +22,14 @@ Please use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) to ma
 
 We use both [eslint](https://eslint.org/) and [prettier](https://prettier.io/).
 
-Please review [VS Code](https://code.visualstudio.com/) plugins at [dev dependencies](https://github.com/ecoclimasol/appseguros1/blob/master/package.json).
+Please review [VS Code](https://code.visualstudio.com/) plugins at [dev dependencies](https://github.com/ramirogavagnin/rick-and-morty/blob/master/package.json).
 
 ## Intallation
 
 1- Clone this repository
 
 ```
-git clone https://ramirogavagnin.git
+git clone https://github.com/ramirogavagnin/rick-and-morty.git
 ```
 
 2- Install packages:
@@ -46,7 +48,7 @@ cd ios/ && pod install && cd ..
 
 ## Running
 
-Review this scripts on [package.json[scripts]](https://github.com/ramirgavagnin/package.json)
+Review this scripts on [package.json[scripts]](https://github.com/ramirogavagnin/rick-and-morty/blob/master/package.json)
 
 **Android**
 

@@ -13,7 +13,8 @@
         "run-both": "cd android/ && ./gradlew clean && cd .. && ENVFILE=.env npx react-native run-android && npx react-native run-ios --device 'iPhone de Ramiro'",
         "start": "npx react-native start",
         "test": "jest",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "clean": "npx react-native-clean-project"
     },
     "dependencies": {
         "@react-native-community/async-storage": "^1.10.3",
