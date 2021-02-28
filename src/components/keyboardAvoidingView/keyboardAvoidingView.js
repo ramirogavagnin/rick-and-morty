@@ -1,34 +1,50 @@
 import React from 'react';
+import {
+    KeyboardAvoidingView as RNKeyboardAvoidingView,
+    Platform,
+    ScrollView,
+} from 'react-native';
 import PropTypes from 'prop-types';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import styles from './keyboardAvoidingViewStyles';
 
 const KeyboardAvoidingView = ({
-    enableOnAndroid,
-    contentContainerStyle,
-    bounces,
     children,
+    style,
+    contentStyle,
+    contentContainerStyle,
+    behavior,
+    bounces,
     ...props
 }) => {
     return (
-        <KeyboardAwareScrollView
-            contentContainerStyle={contentContainerStyle}
-            enableOnAndroid={enableOnAndroid}
-            bounces={bounces}
-            {...props}
-        >
-            {children}
-        </KeyboardAwareScrollView>
+        <RNKeyboardAvoidingView behavior={behavior} style={style}>
+            <ScrollView
+                {...props}
+                style={contentStyle}
+                contentContainerStyle={contentContainerStyle}
+                bounces={bounces}
+            >
+                {children}
+            </ScrollView>
+        </RNKeyboardAvoidingView>
     );
 };
 
 KeyboardAvoidingView.propTypes = {
-    enableOnAndroid: PropTypes.bool,
-    bounces: PropTypes.bool,
     children: PropTypes.node,
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    contentContainerStyle: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.array,
+    ]),
+    behavior: PropTypes.string,
+    bounces: PropTypes.bool,
 };
 
 KeyboardAvoidingView.defaultProps = {
-    enableOnAndroid: false,
+    behavior: Platform.OS === 'ios' ? 'padding' : 'height',
     bounces: false,
 };
 

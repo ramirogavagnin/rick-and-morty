@@ -5,8 +5,8 @@ export default {
     grey: '#9e9e9e',
     middleGrey: '#3c3e44',
     darkGrey: '#24282f',
+    darkGrey90: 'rgba(36, 40, 47, 0.98)',
     white: '#f5f5f5',
-    // red: '#ff0033',
     red: '#d63c2e',
     green: '#54cc44',
     // Components

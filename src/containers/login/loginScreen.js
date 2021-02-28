@@ -34,9 +34,7 @@ const LoginScreen = ({ isAuthAction, translations, ...props }) => {
                 resizeMode="cover"
             >
                 <SafeAreaView />
-                <KeyboardAvoidingView
-                    contentContainerStyle={styles.contentContainer}
-                >
+                <KeyboardAvoidingView>
                     <Image
                         source={Images?.logo}
                         style={styles.logo}

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { YellowBox } from 'react-native';
+import React from 'react';
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -13,10 +12,6 @@ import AppNavigator from './src/navigator/appNavigator';
 import Theme from './src/themes/theme';
 
 const App = () => {
-    useEffect(() => {
-        YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']); // TODO: Delete this warning
-    }, []);
-
     return (
         <Provider store={store}>
             <PaperProvider theme={Theme}>
