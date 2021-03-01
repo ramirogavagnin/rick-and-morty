@@ -1,121 +1,109 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, SafeAreaView } from 'react-native';
+import {View, SafeAreaView} from 'react-native';
 
-import { connect } from 'react-redux';
-import { isAuthAction, logoutAction } from '../../store/actions/authActions';
+import {connect} from 'react-redux';
+import {isAuthAction, logoutAction} from '@actions/authActions';
 
-import { features } from '../../../app.json';
+import {features} from '../../../app.json';
 
-import { navigate } from '../../utils/navigationUtils';
-import routes from '../../navigator/routes';
-
-import Button from '../button';
-import Image from '../image';
-import FlatList from '../flatList';
-
+import Button from '@components/button';
+import Image from '@components/image';
+import FlatList from '@components/flatList';
 import TouchableItem from './components/touchableItem';
 
-import translationsEnums from '../../themes/translations/translationsEnums';
-import translationsKeys from '../../themes/translations/translationsKeys';
-import { renderTranslations } from '../../utils/translationsUtils';
-
-import Images from '../../themes/images';
+import Images from '@themes/images';
+import translationsEnums from '@themes/translations/translationsEnums';
+import translationsKeys from '@themes/translations/translationsKeys';
+import {renderTranslations} from '@utils/translationsUtils';
+import {navigate} from '@utils/navigationUtils';
+import routes from '@navigator/routes';
 
 import styles from './drawerMenuStyles';
 
-const { logo } = Images;
+const {logo} = Images;
 
-const DrawerMenu = ({
-    navigation,
-    isAuthAction,
-    logoutAction,
+const DrawerMenu = ({navigation, isAuthAction, logoutAction, translations}) => {
+  const homeTranslations = renderTranslations(
     translations,
-}) => {
-    const homeTranslations = renderTranslations(
-        translations,
-        translationsEnums.home,
-        translationsKeys.home,
-    );
+    translationsEnums.home,
+    translationsKeys.home
+  );
 
-    const { home, logout } = homeTranslations;
+  const {home, logout} = homeTranslations;
 
-    const onPressLogout = async () => {
-        await navigation.toggleDrawer();
-        logoutAction(false);
-        // isAuthAction(false);
-    };
-    const Home = (
-        <TouchableItem
-            onPress={() => navigate(navigation, routes.home)}
-            name="home"
-            text={home}
-        />
-    );
+  const onPressLogout = async () => {
+    await navigation.toggleDrawer();
+    logoutAction(false);
+    // isAuthAction(false);
+  };
+  const Home = (
+    <TouchableItem
+      onPress={() => navigate(navigation, routes.home)}
+      name="home"
+      text={home}
+    />
+  );
 
-    const renderItem = ({ item }) => (
-        <TouchableItem
-            onPress={() => {
-                navigate(navigation, routes[item.name]);
-            }}
-            name={item.name}
-            text={homeTranslations[item.name]}
-        />
-    );
+  const renderItem = ({item}) => (
+    <TouchableItem
+      onPress={() => {
+        navigate(navigation, routes[item.name]);
+      }}
+      name={item.name}
+      text={homeTranslations[item.name]}
+    />
+  );
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Image style={styles.image} source={logo} />
-                </View>
-                <View style={styles.contentContainer}>
-                    <FlatList
-                        data={features}
-                        ListHeaderComponent={Home}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={renderItem}
-                        bounces={false}
-                    />
-                </View>
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image style={styles.image} source={logo} />
+        </View>
+        <View style={styles.contentContainer}>
+          <FlatList
+            data={features}
+            ListHeaderComponent={Home}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderItem}
+            bounces={false}
+          />
+        </View>
 
-                <View style={styles.footerContainer}>
-                    <Button
-                        buttonStyle={styles.button}
-                        contentStyle={styles.button}
-                        onPress={onPressLogout}
-                    >
-                        {logout}
-                    </Button>
-                </View>
-            </View>
-        </SafeAreaView>
-    );
+        <View style={styles.footerContainer}>
+          <Button
+            buttonStyle={styles.button}
+            contentStyle={styles.button}
+            onPress={onPressLogout}>
+            {logout}
+          </Button>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
 };
 
 DrawerMenu.propTypes = {
-    isAuthAction: PropTypes.func,
-    navigation: PropTypes.object,
-    translations: PropTypes.object,
+  isAuthAction: PropTypes.func,
+  navigation: PropTypes.object,
+  translations: PropTypes.object,
 };
 
 DrawerMenu.defaultProps = {
-    navigation: {},
-    translations: {},
+  navigation: {},
+  translations: {},
 };
 
-const mapStateToProps = state => {
-    return {
-        translations: state.languages.translations,
-    };
+const mapStateToProps = (state) => {
+  return {
+    translations: state.languages.translations,
+  };
 };
 
 const mapDispatchToProps = {
-    isAuthAction,
-    logoutAction,
+  isAuthAction,
+  logoutAction,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(DrawerMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu);

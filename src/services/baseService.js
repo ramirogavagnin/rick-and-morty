@@ -7,15 +7,15 @@ import ENV from 'react-native-config';
 // const AUTHORIZATION_HEADER = 'Authorization'; TODO: Logic for Token and Refresh Token
 
 export const publicService = axios.create({
-    baseURL: `${ENV.APP_BACKEND_PROTOCOL}${ENV.APP_BACKEND_HOST}`,
-    timeout: ENV.TIMEOUT || 10000,
-    headers: { 'content-type': `application/json` },
+  baseURL: `${ENV.APP_BACKEND_PROTOCOL}${ENV.APP_BACKEND_HOST}`,
+  timeout: ENV.TIMEOUT || 10000,
+  headers: {'content-type': `application/json`},
 });
 
 export const baseService = axios.create({
-    baseURL: `${ENV.APP_BACKEND_PROTOCOL}${ENV.APP_BACKEND_HOST}`,
-    timeout: ENV.TIMEOUT || 10000,
-    headers: { 'content-type': `application/json` },
+  baseURL: `${ENV.APP_BACKEND_PROTOCOL}${ENV.APP_BACKEND_HOST}`,
+  timeout: ENV.TIMEOUT || 10000,
+  headers: {'content-type': `application/json`},
 });
 
 /* const setAuthorizationInterceptors = axiosInstance => { TODO: Logic for Token and Refresh Token

@@ -1,38 +1,37 @@
 import React from 'react';
-import { TouchableHighlight as RNTouchableHighlight } from 'react-native';
+import {TouchableHighlight as RNTouchableHighlight} from 'react-native';
 import PropTypes from 'prop-types';
 
-import Colors from '../../themes/colors';
+import Colors from '@themes/colors';
 
 const TouchableHighlight = ({
-    style,
-    onPress,
-    activeOpacity,
-    underlayColor,
-    children,
-    ...props
+  style,
+  onPress,
+  activeOpacity,
+  underlayColor,
+  children,
+  ...props
 }) => (
-    <RNTouchableHighlight
-        style={style}
-        onPress={onPress}
-        activeOpacity={activeOpacity}
-        underlayColor={underlayColor}
-        {...props}
-    >
-        <>{children}</>
-    </RNTouchableHighlight>
+  <RNTouchableHighlight
+    style={style}
+    onPress={onPress}
+    activeOpacity={activeOpacity}
+    underlayColor={underlayColor}
+    {...props}>
+    <>{children}</>
+  </RNTouchableHighlight>
 );
 
 TouchableHighlight.propTypes = {
-    onPress: PropTypes.func,
-    activeOpacity: PropTypes.number,
-    underlayColor: PropTypes.string,
-    children: PropTypes.node,
+  onPress: PropTypes.func,
+  activeOpacity: PropTypes.number,
+  underlayColor: PropTypes.string,
+  children: PropTypes.node,
 };
 
 TouchableHighlight.defaultProps = {
-    activeOpacity: 0.5,
-    underlayColor: Colors.highlightOverlay,
+  activeOpacity: 0.5,
+  underlayColor: Colors.highlightOverlay,
 };
 
 export default TouchableHighlight;

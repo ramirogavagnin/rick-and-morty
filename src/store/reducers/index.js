@@ -1,17 +1,17 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
-import { authReducer } from '../reducers/authReducer';
-import { languagesReducer } from '../reducers/languagesReducer';
-import { characterReducer } from '../reducers/characterReducer';
-import { locationReducer } from '../reducers/locationReducer';
-import { episodeReducer } from '../reducers/episodeReducer';
+import {authReducer} from './authReducer';
+import {languagesReducer} from './languagesReducer';
+import {characterReducer} from './characterReducer';
+import {locationReducer} from './locationReducer';
+import {episodeReducer} from './episodeReducer';
 
 const reducers = {
-    auth: authReducer,
-    languages: languagesReducer,
-    character: characterReducer,
-    location: locationReducer,
-    episode: episodeReducer,
+  auth: authReducer,
+  languages: languagesReducer,
+  character: characterReducer,
+  location: locationReducer,
+  episode: episodeReducer,
 };
 
 const allReducers = combineReducers(reducers);

@@ -1,3 +1,3 @@
 export default {
-    snackbar: 3000,
+  snackbar: 3000,
 };
