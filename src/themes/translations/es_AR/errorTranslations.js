@@ -1,3 +1,3 @@
 export default {
-    requestNotValid: 'Hubo un error, inténtalo nuevamente',
+  requestNotValid: 'Hubo un error, inténtalo nuevamente',
 };

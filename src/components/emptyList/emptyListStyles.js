@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import Sizes from '../../themes/sizes';
+import Sizes from '@themes/sizes';
 
-const { sixteen } = Sizes.fontSizes;
+const {sixteen} = Sizes.fontSizes;
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: sixteen,
-    },
+  text: {
+    fontSize: sixteen,
+  },
 });
 
 export default styles;

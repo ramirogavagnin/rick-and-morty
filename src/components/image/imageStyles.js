@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
-import Colors from '../../themes/colors';
+import Colors from '@themes/colors';
 
 const styles = StyleSheet.create({
-    image: {
-        backgroundColor: Colors.grey,
-    },
+  image: {
+    backgroundColor: Colors.grey,
+  },
 });
 
 export default styles;

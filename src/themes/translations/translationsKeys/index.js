@@ -5,9 +5,9 @@ import characterKeys from './characterKeys';
 import genericKeys from './genericKeys';
 
 export default {
-    login: loginKeys,
-    home: homeKeys,
-    error: errorKeys,
-    character: characterKeys,
-    generic: genericKeys,
+  login: loginKeys,
+  home: homeKeys,
+  error: errorKeys,
+  character: characterKeys,
+  generic: genericKeys,
 };

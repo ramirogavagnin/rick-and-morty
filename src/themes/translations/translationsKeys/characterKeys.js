@@ -1,4 +1,4 @@
 export default {
-    charactersTitle: 'charactersTitle',
-    lastLocation: 'lastLocation',
+  charactersTitle: 'charactersTitle',
+  lastLocation: 'lastLocation',
 };

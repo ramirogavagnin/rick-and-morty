@@ -1,13 +1,13 @@
 const formKeys = {
-    email: 'email',
-    password: 'password',
+  email: 'email',
+  password: 'password',
 };
 
-const { email, password } = formKeys;
+const {email, password} = formKeys;
 
 const initialValues = {
-    [email]: '',
-    [password]: '',
+  [email]: '',
+  [password]: '',
 };
 
-export { formKeys, initialValues };
+export {formKeys, initialValues};
