@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     width: wp(100),
   },
   defaultSnackBar: {
+    paddingVertical: wp(3),
     backgroundColor: red,
   },
   snackbarSuccess: {

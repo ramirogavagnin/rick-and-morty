@@ -6,4 +6,7 @@ export default {
   profile: 'profile',
   locations: 'locations',
   episodes: 'episodes',
+  logout: 'logout',
+  age: 'age',
+  role: 'role',
 };

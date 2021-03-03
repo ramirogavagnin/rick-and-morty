@@ -1,18 +1,17 @@
 {
-    "root": true,
-    "extends": "@react-native-community",
-    "plugins": ["react-hooks"],
-    "env": {
-      "es6": true,
-      "node": true,
-      "browser": true
-    },
-    "rules": {
-      "no-alert": "off",
-      "no-debugger": "error",
-      "no-var": "error",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
+  "root": true,
+  "extends": "@react-native-community",
+  "plugins": ["react-hooks"],
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "no-alert": "off",
+    "no-debugger": "error",
+    "no-var": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
-  
+}

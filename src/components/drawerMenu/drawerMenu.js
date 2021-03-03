@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {func, object} from 'prop-types';
 import {View, SafeAreaView} from 'react-native';
 
 import {connect} from 'react-redux';
-import {isAuthAction, logoutAction} from '@actions/authActions';
+import {logoutAction} from '@actions/authActions';
 
 import {features} from '../../../app.json';
 
@@ -23,7 +23,7 @@ import styles from './drawerMenuStyles';
 
 const {logo} = Images;
 
-const DrawerMenu = ({navigation, isAuthAction, logoutAction, translations}) => {
+const DrawerMenu = ({navigation, translations, logoutAction}) => {
   const homeTranslations = renderTranslations(
     translations,
     translationsEnums.home,
@@ -34,8 +34,7 @@ const DrawerMenu = ({navigation, isAuthAction, logoutAction, translations}) => {
 
   const onPressLogout = async () => {
     await navigation.toggleDrawer();
-    logoutAction(false);
-    // isAuthAction(false);
+    logoutAction();
   };
   const Home = (
     <TouchableItem
@@ -85,9 +84,9 @@ const DrawerMenu = ({navigation, isAuthAction, logoutAction, translations}) => {
 };
 
 DrawerMenu.propTypes = {
-  isAuthAction: PropTypes.func,
-  navigation: PropTypes.object,
-  translations: PropTypes.object,
+  navigation: object,
+  translations: object,
+  logoutAction: func,
 };
 
 DrawerMenu.defaultProps = {
@@ -102,7 +101,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  isAuthAction,
   logoutAction,
 };
 

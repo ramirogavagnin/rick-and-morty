@@ -26,15 +26,13 @@ const styles = StyleSheet.create({
     backgroundColor: darkGrey90,
   },
   emailInput: {
-    marginTop: hp(7),
+    marginTop: hp(10),
   },
   passwordInput: {
     marginTop: hp(3),
   },
   logInButton: {
-    position: 'absolute',
-    bottom: hp(15),
-    left: wp(5),
+    marginTop: hp(10),
   },
 });
 
