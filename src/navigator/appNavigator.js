@@ -1,58 +1,45 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import {func, object} from 'prop-types';
 import SplashScreen from 'react-native-splash-screen';
 
-import { defaultLanguage } from '../../app.json';
+import {defaultLanguage} from '../../app.json';
 
-import { connect } from 'react-redux';
-import { setTranslationsAction } from '../store/actions/languagesActions';
+import {connect} from 'react-redux';
+import {setTranslationsAction} from '@actions/languagesActions';
 
 import AuthStack from './authStack';
 import PrivateStack from './privateStack';
+import AuthLoadingScreen from '@containers/authLoading';
 
-import AuthLoadingScreen from '../containers/authLoading';
+import localTranslations from '@themes/translations';
 
-import localTranslations from '../themes/translations';
+const AppNavigator = ({user, setTranslationsAction}) => {
+  const [firstRender, setFirstRender] = useState(false);
 
-const AppNavigator = ({ isAuth, setTranslationsAction }) => {
-    const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    localTranslations.defaultLocale = defaultLanguage;
+    localTranslations.locale = defaultLanguage;
+    setTranslationsAction(localTranslations);
+    setFirstRender(true);
+    SplashScreen.hide();
+  }, []);
 
-    useEffect(() => {
-        localTranslations.defaultLocale = defaultLanguage;
-        localTranslations.locale = defaultLanguage;
-        setTranslationsAction(localTranslations);
+  if (!firstRender) return <AuthLoadingScreen />;
 
-        setTimeout(() => {
-            setIsLoading(false);
-            SplashScreen.hide();
-        }, 200);
-    }, []);
-
-    if (isLoading) return <AuthLoadingScreen />;
-
-    return <>{isAuth ? <PrivateStack /> : <AuthStack />}</>;
+  return <>{user?.token ? <PrivateStack /> : <AuthStack />}</>;
 };
 
 AppNavigator.propTypes = {
-    translations: PropTypes.object,
-    isAuth: PropTypes.bool,
-    setTranslationsAction: PropTypes.func,
+  user: object,
+  setTranslationsAction: func,
 };
 
-AppNavigator.defaultProps = {
-    translations: {},
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuth: state.auth.isAuth,
-        translations: state.languages.translations,
-    };
-};
+const mapDispathToProps = {setTranslationsAction};
 
-const mapDispathToProps = { setTranslationsAction };
-
-export default connect(
-    mapStateToProps,
-    mapDispathToProps,
-)(AppNavigator);
+export default connect(mapStateToProps, mapDispathToProps)(AppNavigator);

@@ -1,49 +1,38 @@
-import { entityConstants } from '../constants/entityConstants';
+import ENV from 'react-native-config';
+import {isArray} from 'lodash';
+import {entityConstants} from '@constants/entityConstants';
 
-import { getEntity } from '../../services/entityService';
-import { isArray } from '../../utils/helpers';
+import {getEntity} from '@services/entityService';
 
-import translationsKeys from '../../themes/translations/translationsKeys';
-const { requestNotValid } = translationsKeys.error;
+import translationsKeys from '@themes/translations/translationsKeys';
+const {requestNotValid} = translationsKeys.error;
 
-const requetingConstants = {
-    character: 'getCharactersRequesting',
-    location: 'getLocationsRequesting',
-    episode: 'getEpisodesRequesting',
-};
+export const getEntityAction = (entity, next, previousResults) => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: entityConstants[entity].REQUEST});
 
-export const getEntityAction = (entity, prev, next, previousResults) => {
-    return async (dispatch, getState) => {
-        if (getState()[entity][requetingConstants[entity]]) return;
+      const entityResponse = await getEntity(next);
+      const currentResults = entityResponse?.results;
 
-        try {
-            dispatch({ type: entityConstants[entity].REQUEST });
-
-            let pageNumber = '1';
-
-            if (prev || next) pageNumber = next.charAt(next?.length - 1);
-
-            const entityResponse = await getEntity(entity, pageNumber);
-            const currentResults = entityResponse?.results;
-
-            if (isArray(currentResults) && isArray(previousResults)) {
-                const results = [...previousResults, ...currentResults];
-                dispatch({
-                    type: entityConstants[entity].SUCCESS,
-                    payload: { ...entityResponse, results },
-                });
-            } else
-                dispatch({
-                    type: entityConstants[entity].FAILURE,
-                    payload: requestNotValid,
-                });
-        } catch (e) {
-            dispatch({
-                type: entityConstants[entity].FAILURE,
-                payload: e.message,
-            });
-        } finally {
-            dispatch({ type: entityConstants[entity].RESET });
-        }
-    };
+      if (isArray(currentResults) && isArray(previousResults)) {
+        const results = [...previousResults, ...currentResults];
+        dispatch({
+          type: entityConstants[entity].SUCCESS,
+          payload: {...entityResponse, results},
+        });
+      } else
+        dispatch({
+          type: entityConstants[entity].FAILURE,
+          payload: requestNotValid,
+        });
+    } catch (e) {
+      dispatch({
+        type: entityConstants[entity].FAILURE,
+        payload: e.message,
+      });
+    } finally {
+      dispatch({type: entityConstants[entity].RESET});
+    }
+  };
 };

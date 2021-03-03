@@ -1,77 +1,90 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { SafeAreaView, Image, ImageBackground, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {func, object, bool, string} from 'prop-types';
+import {ImageBackground, View} from 'react-native';
 
-import { connect } from 'react-redux';
-import { isAuthAction } from '../../store/actions/authActions';
+import {connect} from 'react-redux';
+import {loginAction} from '@actions/authActions';
 
-import Spinner from '../../components/spinner';
-import KeyboardAvoidingView from '../../components/keyboardAvoidingView';
-
+import Spinner from '@components/spinner';
+import Snackbar from '@components/snackbar';
+import KeyboardAvoidingView from '@components/keyboardAvoidingView';
 import LoginForm from './components/loginForm';
 
-import Images from '../../themes/images';
+import Images from '@themes/images';
+import translationsEnums from '@themes/translations/translationsEnums';
+import translationsKeys from '@themes/translations/translationsKeys';
+import {renderTranslations} from '@utils/translationsUtils';
 
 import styles from './loginScreenStyles';
 
-const LoginScreen = ({ isAuthAction, translations, ...props }) => {
-    const [isLoading, setIsLoading] = useState(false);
+const LoginScreen = ({
+  translations,
+  requesting,
+  failure,
+  message,
+  loginAction,
+}) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const onDismissError = () => setErrorMessage('');
 
-    const loginAction = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            isAuthAction(true);
-        }, 250);
-    };
+  useEffect(() => {
+    if (failure && message) setErrorMessage(message);
+  }, [failure, message]);
 
-    return (
-        <View style={styles.container}>
-            <Spinner visible={isLoading} />
-            <ImageBackground
-                source={Images?.loginBackground}
-                style={styles.container}
-                resizeMode="cover"
-            >
-                <SafeAreaView />
-                <KeyboardAvoidingView
-                    contentContainerStyle={styles.contentContainer}
-                >
-                    <Image
-                        source={Images?.logo}
-                        style={styles.logo}
-                        resizeMode="contain"
-                    />
-                    <LoginForm
-                        onPress={loginAction}
-                        translations={translations}
-                    />
-                </KeyboardAvoidingView>
-            </ImageBackground>
-        </View>
-    );
+  const handleOnSubmit = (form) => loginAction(form);
+
+  const errorTranslations = renderTranslations(
+    translations,
+    translationsEnums.error,
+    translationsKeys.error
+  );
+
+  return (
+    <View style={styles.container}>
+      <Spinner visible={requesting} />
+      <Snackbar
+        message={errorTranslations[errorMessage]}
+        visible={!!errorMessage}
+        onDismiss={onDismissError}
+      />
+      <ImageBackground
+        source={Images?.loginBackground}
+        style={styles.container}
+        resizeMode="cover">
+        <KeyboardAvoidingView>
+          <LoginForm
+            handleOnSubmit={handleOnSubmit}
+            translations={translations}
+          />
+        </KeyboardAvoidingView>
+      </ImageBackground>
+    </View>
+  );
 };
 
 LoginScreen.propTypes = {
-    isAuthAction: PropTypes.func,
-    translations: PropTypes.object,
+  translations: object,
+  requesting: bool,
+  failure: bool,
+  message: string,
+  loginAction: func,
 };
 
 LoginScreen.defaultProps = {
-    translations: {},
+  translations: {},
 };
 
-const mapStateToProps = state => {
-    return {
-        translations: state.languages.translations,
-    };
+const mapStateToProps = (state) => {
+  return {
+    translations: state.languages.translations,
+    requesting: state.auth.loginRequesting,
+    failure: state.auth.loginFailure,
+    message: state.auth.loginMessage,
+  };
 };
 
 const mapDispatchToProps = {
-    isAuthAction,
+  loginAction,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -2,23 +2,37 @@
 
 **Hello there and welcome to Rick and Morty App. This is an educational and demonstrative project - WORK IN PROGRESS 😉**
 
+## Credentials
+
+**Admin**
+
+email: rick@sanchez.com
+
+password: Password1234
+
+**User**
+
+email: morty@smith.com
+
+password: Password1234
+
 ## Requirements
 
--   **React Native**
+- **React Native**
 
 Set the [react native cli](https://reactnative.dev/docs/environment-setup) development environment.
 
--   **Node.js**
+- **Node.js**
 
 Install [Node.js](https://nodejs.org/es/) or check if you already have it running `node -v`
 
 Life's easy, use [NVM](https://github.com/nvm-sh/nvm) (Node Version Manager)
 
--   **Yarn**
+- **Yarn**
 
 Please use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) to manage your packages, **DON'T USE NPM INSTALL** on this project, this will cause unexpected bugs between the lock's files.
 
--   **Linter**
+- **Linter**
 
 We use both [eslint](https://eslint.org/) and [prettier](https://prettier.io/).
 

@@ -1,3 +1,7 @@
 export default {
-    requestNotValid: 'requestNotValid',
+  requestNotValid: 'requestNotValid',
+  invalidPassword: 'invalidPassword',
+  userNotFound: 'userNotFound',
+  unauthorized: 'unauthorized',
+  serverError: 'serverError',
 };
