@@ -2,6 +2,20 @@
 
 **Hello there and welcome to Rick and Morty App. This is an educational and demonstrative project - WORK IN PROGRESS 😉**
 
+## Credentials
+
+**Admin**
+
+email: rick@sanchez.com
+
+password: Password1234
+
+**User**
+
+email: morty@smith.com
+
+password: Password1234
+
 ## Requirements
 
 - **React Native**
