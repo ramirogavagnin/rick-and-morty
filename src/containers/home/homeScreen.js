@@ -37,8 +37,8 @@ const HomeScreen = ({navigation, translations}) => {
 
   const renderItem = ({item}) => (
     <HomeCard
-      onPress={() => navigate(navigation, routes[item.name])}
-      name={item.name}
+      onPress={() => navigate(navigation, routes[item?.name])}
+      name={item?.name}
       translations={homeTranslations}
     />
   );

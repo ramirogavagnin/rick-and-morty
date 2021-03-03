@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import PropTypes from 'prop-types';
+import {func, object} from 'prop-types';
 import {View} from 'react-native';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
@@ -20,7 +20,7 @@ import styles from '../loginScreenStyles';
 
 const {login} = translationsEnums;
 
-const LoginForm = ({onPress, translations}) => {
+const LoginForm = ({handleOnSubmit, translations}) => {
   const {
     user,
     password,
@@ -49,7 +49,7 @@ const LoginForm = ({onPress, translations}) => {
     <Formik
       initialValues={initialValues}
       validationSchema={LoginSchema}
-      onSubmit={(values) => onPress()}>
+      onSubmit={handleOnSubmit}>
       {(formikProps) => {
         const {
           handleChange,
@@ -89,7 +89,7 @@ const LoginForm = ({onPress, translations}) => {
               error={errors.password && touched.password && errors.password}
             />
             <Button
-              disabled={!dirty || Object.keys(errors).length > 0}
+              disabled={!dirty || Object.keys(errors)?.length > 0}
               buttonStyle={styles.logInButton}
               onPress={handleSubmit}>
               {logIn}
@@ -102,12 +102,13 @@ const LoginForm = ({onPress, translations}) => {
 };
 
 LoginForm.propTypes = {
-  onPress: PropTypes.func,
-  translations: PropTypes.object,
+  handleOnSubmit: func,
+  translations: object,
 };
 
 LoginForm.defaultProps = {
   translations: {},
+  handleOnSubmit: () => {},
 };
 
 export default LoginForm;

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
+import {func, object, array, bool, string} from 'prop-types';
+import {isString, capitalize} from 'lodash';
 
 import {connect} from 'react-redux';
 import {getEntityAction} from '@actions/entityActions';
@@ -15,15 +17,12 @@ import translationsEnums from '@themes/translations/translationsEnums';
 import translationsKeys from '@themes/translations/translationsKeys';
 import {renderTranslations} from '@utils/translationsUtils';
 
-import {capitalizeFirstLetter} from '@utils/stringsUtils';
-
 import styles from './charactersScreenStyles';
 
 const CharactersScreen = ({
   navigation,
   translations,
   characters,
-  prev,
   next,
   requesting,
   failure,
@@ -45,10 +44,9 @@ const CharactersScreen = ({
   }, [failure, message]);
 
   const initialRequest = () =>
-    getEntityAction(entityEnums.character, prev, next, characters);
+    getEntityAction(entityEnums.character, next, characters);
 
-  const getCharactersNextPage = () =>
-    typeof next === 'string' && initialRequest();
+  const getCharactersNextPage = () => isString(next) && initialRequest();
 
   const {charactersTitle, lastLocation} = renderTranslations(
     translations,
@@ -70,19 +68,16 @@ const CharactersScreen = ({
 
   const onDismissError = () => setErrorMessage('');
 
-  const renderItem = ({item}) => {
-    const {name, status, species, location, image} = item;
-    return (
-      <CharacterCard
-        name={name}
-        status={capitalizeFirstLetter(status)}
-        specie={species}
-        location={location?.name}
-        lastLocation={lastLocation}
-        image={image}
-      />
-    );
-  };
+  const renderItem = ({item: {name, status, species, location, image}}) => (
+    <CharacterCard
+      name={name}
+      status={capitalize(status)}
+      specie={species}
+      location={location?.name}
+      lastLocation={lastLocation}
+      image={image}
+    />
+  );
 
   const ListEmptyComponent = <EmptyList text={noResults} />;
 
@@ -108,16 +103,28 @@ const CharactersScreen = ({
   );
 };
 
+CharactersScreen.propTypes = {
+  translations: object,
+  characters: array,
+  next: string,
+  requesting: bool,
+  failure: bool,
+  message: string,
+  getEntityAction: func,
+};
+
+CharactersScreen.defaultProps = {
+  translations: {},
+};
+
 const mapStateToPros = (state) => {
   return {
     translations: state.languages.translations,
     characters: state.character.characters.results,
-    prev: state.character.characters.info.prev,
     next: state.character.characters.info.next,
     requesting: state.character.getCharactersRequesting,
     failure: state.character.getCharactersFailure,
     message: state.character.getCharactersMessage,
-    state,
   };
 };
 

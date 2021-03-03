@@ -42,6 +42,7 @@ export default {
     width: wp(85),
     borderRadius: wp(2.7),
   },
+  avatar: wp(50),
   // Icons
   menu: wp(9),
   divider: wp(0.4),

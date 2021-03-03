@@ -1,29 +1,18 @@
+import ENV from 'react-native-config';
+import {isArray} from 'lodash';
 import {entityConstants} from '@constants/entityConstants';
 
 import {getEntity} from '@services/entityService';
-import {isArray} from '@utils/helpers';
 
 import translationsKeys from '@themes/translations/translationsKeys';
 const {requestNotValid} = translationsKeys.error;
 
-const requetingConstants = {
-  character: 'getCharactersRequesting',
-  location: 'getLocationsRequesting',
-  episode: 'getEpisodesRequesting',
-};
-
-export const getEntityAction = (entity, prev, next, previousResults) => {
-  return async (dispatch, getState) => {
-    if (getState()[entity][requetingConstants[entity]]) return;
-
+export const getEntityAction = (entity, next, previousResults) => {
+  return async (dispatch) => {
     try {
       dispatch({type: entityConstants[entity].REQUEST});
 
-      let pageNumber = '1';
-
-      if (prev || next) pageNumber = next.charAt(next?.length - 1);
-
-      const entityResponse = await getEntity(entity, pageNumber);
+      const entityResponse = await getEntity(next);
       const currentResults = entityResponse?.results;
 
       if (isArray(currentResults) && isArray(previousResults)) {
